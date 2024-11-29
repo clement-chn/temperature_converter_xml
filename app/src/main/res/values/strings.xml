@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">TemperatureConverter</string>
+    <string name="tapez_la_temp_rature">Tapez la température</string>
+</resources>
