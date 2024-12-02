@@ -1,13 +1,17 @@
 package com.example.temperatureconverter
 
+import android.app.Dialog
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.RadioButton
+import android.widget.RadioGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -58,11 +62,14 @@ class MainActivity : AppCompatActivity() {
         return when (item.itemId) {
 
             R.id.action_search -> {
-                Toast.makeText(
+                /*Toast.makeText(
                     this, "Action pour le bouton de recherche",
                     Toast.LENGTH_SHORT
                 )
                     .show()
+                true*/
+
+                displayDialog(savedInstanceState = null)
                 true
             }
 
@@ -86,4 +93,31 @@ class MainActivity : AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
     }
+
+     private fun displayDialog (savedInstanceState: Bundle?): Dialog {
+
+         val radioGroup = RadioGroup(this)
+         val radioButton1 = RadioButton(this)
+         val radioButton2 = RadioButton(this)
+
+         radioButton1.text = "option1"
+         radioButton2.text = "option2"
+
+         radioGroup.addView(radioButton1)
+         radioGroup.addView(radioButton2)
+
+        val alertDialog = AlertDialog.Builder(this)
+            .setTitle("Titre de la boite de dialogue")
+            .setMessage("Ceci est un message de boite de dialogue")
+            .setView(radioGroup)
+            .setPositiveButton("OK") {
+                dialog, _->
+                dialog.dismiss()
+            }
+            .create()
+
+        alertDialog.show()
+         return alertDialog
+    }
+
 }
