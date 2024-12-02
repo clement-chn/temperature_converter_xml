@@ -1,7 +1,9 @@
 package com.example.temperatureconverter
 
 import android.app.Dialog
+import android.content.Intent
 import android.os.Bundle
+import android.provider.MediaStore.Audio.Radio
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
@@ -16,6 +18,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.children
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,24 +65,19 @@ class MainActivity : AppCompatActivity() {
         return when (item.itemId) {
 
             R.id.action_search -> {
-                /*Toast.makeText(
-                    this, "Action pour le bouton de recherche",
-                    Toast.LENGTH_SHORT
-                )
-                    .show()
-                true*/
-
                 displayDialog(savedInstanceState = null)
                 true
             }
 
             R.id.action_about -> {
-                val toast = Toast.makeText(
+                /*val toast = Toast.makeText(
                     this,
                     "Action pour les paramètres",
                     Toast.LENGTH_SHORT
                 )
-                toast.show()
+                toast.show()*/
+                val intent = Intent(this, SecondActivity::class.java)
+                startActivity(intent)
                 true
             }
 
@@ -113,6 +111,11 @@ class MainActivity : AppCompatActivity() {
             .setPositiveButton("OK") {
                 dialog, _->
                 dialog.dismiss()
+                val radioButtons = radioGroup.children.filterIsInstance<RadioButton>()
+                val checkedRadioButton = radioButtons.firstOrNull(){ it.isChecked }
+
+                Toast.makeText(this, checkedRadioButton?.text, Toast.LENGTH_SHORT)
+                    .show()
             }
             .create()
 
